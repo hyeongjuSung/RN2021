@@ -1,5 +1,6 @@
 # RN2021
-React Native 수업 내용 정리<br><br>
+React Native 수업 내용 정리<br>
+
 03.26
 - 컴포넌트를 다루는 state & props<br>
 - app.js에서 type script 관련 오류 해결 방법<br>
