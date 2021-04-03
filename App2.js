@@ -26,7 +26,6 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-//예제2.6 정적 props p.74
 //예제2.8 동적 props
 class App extends React.Component{
   render(){

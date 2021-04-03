@@ -26,9 +26,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-//예제2.9 동적 props
-//예제2.10 
-//예제2.11
+//예제2.11 props와 state 비구조화하기
 class App extends React.Component{
   constructor(){
     super()
