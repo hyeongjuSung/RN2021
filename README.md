@@ -23,7 +23,7 @@ React Native 수업 내용 정리
 - statics객체
 ```
 
-* render메서드
+#### render메서드
 - 컴포넌트가 생성될 때 필수적으로 필요한 유일한 메서드
 - 하나의 자식 요소나 null 혹은 false만을 반환
 - 다른 곳에서 정의한 컴포넌트 반환 가능
@@ -44,20 +44,20 @@ React Native 수업 내용 정리
 - 새로운 props와 가장 최근의 state를 인수로 전달받아서 하나의 객체를 반환
 - 객체의 데이터는 컴포넌트의 state로 갱신
 
-### componentDidMount 메서드
+#### componentDidMount 메서드
 - 컴포넌트가 로딩되고 나서 바로 한 번만 호출
 - Ajax 호출로 가져온 데이터를 처리
 - 지정된 실행 후에 실행되는 setTimeout 처리
 
-### shouldComponentUpdate
+#### shouldComponentUpdate
 - boolean을 반환
 - 컴포넌트의 렌더링 여부 결정
 
-### componentDidUpdate
+#### componentDidUpdate
 - 컴포넌트가 갱신되면서 재랜더링된 후 바로 호출
 - 이전 state와 props를 인수로 가짐
 
-### componentWillUnmount
+#### componentWillUnmount
 - 앱에서 컴포넌트가 파기되기 전에 호출
 
 
@@ -69,13 +69,13 @@ React Native 수업 내용 정리
 - 초기화된 state는 this.state.를 통해 사용 가능
 - this.setState()의 호출을 통해서 갱신
 
-* app.js에서 type script 관련 오류 해결 방법
+## app.js에서 type script 관련 오류 해결 방법
  (설정 -> 검색(javascript validate) -> javascript 항목 disable)
 
 ### props
 - 부모 컴포넌트로부터 전달된 속성값이거나, 컴포넌트가 상속받은 값
 - 컴포넌트에 상속되고 나면 변경 불가
-#### 동적 props
+#### 정적 props
 - props로 전달받은 값은 자식 컴포넌트에서 this.props로 사용 가능
 - 중괄호와 문자열 값 사용, 변수를 다룰 때처럼 리터럴 전달 가능
 #### 동적 props
