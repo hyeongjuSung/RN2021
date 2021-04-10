@@ -3,6 +3,20 @@ RN2021 201740220 성형주
 
 React Native 수업 내용 정리
 -------------
+## 04.09
+## TodoApp 만들기 1
+### App 컴포넌트 만들기
+- ScrollView 컴포넌트
+ScrollView 플랫폼을 감싸는 것으로 스크롤이 가능한 View 컴포넌트
+- keyboardShouldPersistTaps='always'
+키보드가 열려있으면 딛아서 UI가 이벤트를 모두 처리 
+- flex:1
+해당 컴포넌트가 상위 컨테이너 영역 전체를 채우도록 하는 스타일 값
+- TouchableHighlight 컴포넌트
+뷰를 감싸는 역할 밎 뷰가 터치 이벤트에 적절히 대응하도록 하는 컴포넌트
+
+### 안드로이드 에뮬레이터에서 개발자 메뉴 열기
+- [ctrl]+M
 
 ## 04.02
 ### state & props 구조 분해 할당
