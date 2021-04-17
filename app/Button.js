@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Text, StyleSheet, View, TouchableHighlight} from 'react-native';
 
-const Button = ({submitTodo}) => (
+const Button = ({submitTodo}) => ( //submiTodo 메서드 구조분해할당
     <View style={styles.buttonContainer}>
         <TouchableHighlight
             underlayColor='#efefef'

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { View, TextInput, StyleSheet } from 'react-native';
 
-const Input = ({inputValue, inputChange}) => (
+const Input = ({inputValue, inputChange}) => ( // inputValue와 inputChange prop들을 구조분해할당
     <View style={styles.inputContainer}>
         <TextInput
             value={inputValue}
