@@ -3,8 +3,26 @@ RN2021 201740220 성형주
 
 React Native 수업 내용 정리
 -------------
+## 04.30
+## 리액트 네이티브에서 스타일 적용하기
+- 인라인 스타일
+- StyleSheet에 정의된 스타일 참조
+- 스타일 파일 분리
+## 스타일 구성
+- 리액트 네이티브에서는 컴포넌트 단위로 적용
+- 별도의 스타일 파일을 만드는 경우 확장자는 css가 아닌 js로 사용
+## spread
+```
+const arr = [1, 2, 3, 4, 5];
+
+console.log(arr); // [ 1, 2, 3, 4, 5 ]
+console.log(...arr); // 1, 2, 3, 4, 5
+console.log(1, 2, 3, 4, 5); // 1, 2, 3, 4, 5
+```
+## flatten 메서드
+- 스타일 객체를 병합하여 하나의 배열로 만드는데 사용
 ## 04.16
-# TodoApp 만들기 2
+## TodoApp 만들기 2
 ### Todo, TodoList 컴포넌트 생성
 - todos 배열에 추가한 todo들을 렌더링 하기 위해 Todo, TodoList 컴포넌트 생성
 - TodoList 컴포넌트는 todos 배열을 매핑해 각각의 todo에 대해 새로운 Todo 컴포넌트 생성, 각 Todo 컴포넌트에 속성으로 todo 객체 전달
