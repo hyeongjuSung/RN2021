@@ -9,7 +9,7 @@ React Native 수업 내용 정리
 - 구조 분해 할당을 통한 변수명 재할당
 ```
 ### 구조 분해 할당
-```
+```javascript
 - 배열이나 객체의 속성을 해체하여, 그 값을 개별 변수에 담을 수 있게 하는 JavaScript 표현식
 - 참고: https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
 
@@ -86,7 +86,7 @@ console.log(q); // true
            <Example style={{borderWidth: 3, borderLeftColor: 'red'}}>    // borderWidth를 3으로 지정하고 왼쪽 테두리를 다시 만들고 테두리 색상을 빨간색으로 지정
                <Text>borderWidth: 3, borderLeftColor: 'red'</Text>
            </Example>
-           <Example style={{borderLeftWidth: 3}}>    // 왼쪽 테두리만 지정하고 borderLeftWidthfmf 3으로 지정
+           <Example style={{borderLeftWidth: 3}}>    // 왼쪽 테두리만 지정하고 borderLeftWidth를 3으로 지정
                <Text>borderLeftWidth: 3</Text>
            </Example>
            <Example style={{borderWidth: 1, borderStyle: 'dashed'}}>    // borderStyle을 기본 solid에서 dashed로 변경
@@ -302,6 +302,7 @@ const BookDisplay = (props) => {
 - 컴포넌트가 생성될 때 생성자나 속성 초기화를 이용해 초기화
 - 초기화된 state는 this.state.를 통해 사용 가능
 - this.setState()의 호출을 통해서 갱신
+
 import React {Component} from 'react'
 
 class MyComponent extends Component {
@@ -337,7 +338,7 @@ class MyComponent extends Component {
 - 부모 컴포넌트로부터 전달된 속성값이거나, 컴포넌트가 상속받은 값
 - 컴포넌트에 상속되고 나면 변경 불가
 ```
-### props vs state
+### props vs. state
 | props                         | state                       |
 |-------------------------------|-----------------------------|
 | 외부 데이터                   | 내부 데이터                 |
@@ -350,6 +351,7 @@ class MyComponent extends Component {
 ```
 - props로 전달받은 값은 자식 컴포넌트에서 this.props로 사용 가능
 - 중괄호와 문자열 값 사용, 변수를 다룰 때처럼 리터럴 전달 가능
+
 class MyComponent extends Component {
   render() {
     return (
@@ -370,6 +372,7 @@ class BookDisplay extends Component {
 ### 동적 props
 ```
 - 외부에서 변경하는 속성
+
 class MyComponent extends Component {
   constructor() {
     super()
