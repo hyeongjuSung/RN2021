@@ -36,7 +36,7 @@ this.state = {
 const {foo, bar} = this.state
 ```
 ### 배열 구조 분해
-```
+```javascript
 var foo = ["one", "two", "three"];
 
 var [one, two, three] = foo;
@@ -45,7 +45,7 @@ console.log(two); // "two"
 console.log(three); // "three"
 ```
 ### 객체 구조 분해
-```
+```javascript
 var o = {p: 42, q: true};
 var {p, q} = o;
 
@@ -74,8 +74,9 @@ console.log(q); // true
  - borderStyle
  모든 모서리에 공통으로 하나만 적용
 ```
-```
+```javascript
 - color, width, style 속성으로 테두리 만들기
+
 <View style={styles.container}>
            <Example style={{borderWidth: 1}}>    // borderWidth를 1로 지정
                <Text>borderWidth: 1</Text>
@@ -107,7 +108,7 @@ console.log(q); // true
 - 별도의 스타일 파일을 만드는 경우 확장자는 css가 아닌 js로 사용
 ```
 ### 컴포넌트의 스타일시트를 외부로 분리하기
-```
+```javascript
 import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({    
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
 })
 ```
 ### 외부 스타일시트 가져오기
-```
+```javascript
 import { styles, buttons } from './component/styles'    
 <View style={styles.container}>    
   <TouchableHighlight style={buttons.primary} />    
@@ -129,8 +130,9 @@ import { styles, buttons } from './component/styles'    
 
 ```
 ### spread 연산자
-```
+```javascript
 - 배열의 요소 및 객체의 속성에 접근할 때 사용
+
 const arr = [1, 2, 3, 4, 5];
 
 console.log(arr); // [ 1, 2, 3, 4, 5 ]
@@ -142,7 +144,7 @@ console.log(1, 2, 3, 4, 5); // 1, 2, 3, 4, 5
 - 스타일 객체를 병합하여 하나의 배열로 만드는데 사용
 ```
 ### binding
-```
+```javascript
 - 객체의 외부에서 사용할 때 활용
 - React에서는 생성자에서 binding 하는 것이 일반적
 let foo = {  
@@ -231,7 +233,7 @@ ScrollView 플랫폼을 감싸는 것으로 스크롤이 가능한 View 컴포�
 - 이를 위해 구조 분해 할당 개념 도입
 ```
 ### 구조분해할당: 객체에서 속성들을 가져와 앱에서 변수로 사용
-```
+```javascript
 const person = { name: 'Jeff', age: 22 }
 const { age } = person
 console.log(age)
@@ -297,7 +299,7 @@ const BookDisplay = (props) => {
 ## 03.26
 > 컴포넌트 데이터를 다루는 state & props
 ### state
-```
+```javascript
 - 컴포넌트가 다루는 값들의 집합체
 - 컴포넌트가 생성될 때 생성자나 속성 초기화를 이용해 초기화
 - 초기화된 state는 this.state.를 통해 사용 가능
@@ -348,7 +350,7 @@ class MyComponent extends Component {
 | props로 전달받을 수 있음      | props로 전달받을 수 있음    |
 | 컴포넌트 내부에서 변경 불가능  | 컴포넌트 내부에서 변경 가능 |
 ### 정적 props
-```
+```javascript
 - props로 전달받은 값은 자식 컴포넌트에서 this.props로 사용 가능
 - 중괄호와 문자열 값 사용, 변수를 다룰 때처럼 리터럴 전달 가능
 
@@ -370,7 +372,7 @@ class BookDisplay extends Component {
 }
 ```
 ### 동적 props
-```
+```javascript
 - 외부에서 변경하는 속성
 
 class MyComponent extends Component {
