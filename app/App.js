@@ -1,51 +1,74 @@
-import React, {Component} from 'react'
-import {Image, StyleSheet, View} from 'react-native'
+import React, { Component } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
 class App extends Component {
-    render(){
-        return(
-            <View style={styles.container}>
-                <View style={styles.cardContainer}>
-                    <View style={styles.cardImageContainer}>
-                        <Image style={styles.cardImage}        
-                               source={require('./user.png')}/>        
-                    </View>
-                </View>
+    render() {
+        return (
+          <View style={styles.container}>
+            <View style={styles.exampleContainer}>
+              <Example>   
+                <CenteredText>A</CenteredText>
+              </Example>
             </View>
-        );
-    }
+          <View style={styles.exampleContainer}>
+              <Example style={{marginTop: 50}}>    
+                <CenteredText>B</CenteredText>
+              </Example>
+          </View>
+          <View style={styles.exampleContainer}>
+            <Example style={{marginTop: 50, marginLeft: 10}}>    
+              <CenteredText>C</CenteredText>
+            </Example>
+          </View>
+          <View style={styles.exampleContainer}>
+            <Example style={{marginLeft: -10, marginTop: -10}}>    
+              <CenteredText>D</CenteredText>
+            </Example>
+          </View>
+        </View>
+      );
+  }
 }
-// 여러 곳에서 사용할 경우를 대비해서 프로필 카드의 색상을 변수에 정의함
-const profileCardColor = 'dodgerblue'
+
+const Example = (props) => (
+    <View style={[styles.example, props.style]}>
+        {props.children}
+    </View>
+);
+
+const CenteredText = (props) => (
+    <Text style={[styles.centeredText, props.style]}>
+        {props.children}
+    </Text>
+);
 
 const styles = StyleSheet.create({
-    container: {    // 가장 바깥쪽 컴포넌트가 사용할 스타일
+    container: {
+        alignItems: 'center',
         flex: 1,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
         justifyContent: 'center',
-        alignItems: 'center'
+        marginTop: 75
     },
-    cardContainer: {    // 프로필 카드에서 사용할 스타일
-        borderColor: 'black',
-        borderWidth: 3,
-        borderStyle: 'solid',
-        borderRadius: 20,
-        backgroundColor: profileCardColor,
-        width: 300,
-        height: 400
-    },
-    cardImageContainer: {
-        backgroundColor: 'white',
-        borderWidth: 3,
-        borderColor: 'black',
+    exampleContainer: {
+        borderWidth: 1,
         width: 120,
         height: 120,
-        borderRadius: 60
+        marginLeft: 20,
+        marginBottom: 20,
     },
-    cardImage: {
-        width: 80,
-        height: 80
+    example: {
+        width: 50,
+        height: 50,
+        backgroundColor: 'grey',
+        borderWidth: 1,
+        justifyContent: 'center'
+    },
+    centeredText: {
+        textAlign: 'center',
+        margin: 10
     }
-    
 });
 
 export default App
