@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     cardContainer: {    // 프로필 카드에서 사용할 스타일
-        borderColor: black,
+        borderColor: 'black',
         borderWidth: 3,
         borderStyle: 'solid',
         borderRadius: 20,
