@@ -2,6 +2,122 @@ RN2021 201740220 성형주
 =============
 React Native 수업 내용 정리
 -------------
+## 05.14
+> View 컴포넌트에 스타일 적용하기
+### borderRadius를 이용해 모양 만들기
+```
+- borderRadius 속성은 borderTopRightRadius, borderBottomRightRadius, borderBottomLeftRadius, borderTopLeftRadius로 지정
+- borderRadius: [top], [right], [bottom], [left] 와 같이 한번에 지정 가능
+```
+> Text 컴포넌트의 bounding box가 원과 겹치는 문제 해결 방법
+```
+- margin 속성을 이용
+- centeredeText 스타일에 backgroundColor를 transparent로 지정
+```
+### 프로필 카드 컴포넌트에 테두리 추가하기
+```javascript
+import React, {Component} from 'react'
+import {Image, StyleSheet, View} from 'react-native'
+
+class App extends Component {
+    render(){
+        return(
+            <View style={styles.container}>
+                <View style={styles.cardContainer}>
+                    <View style={styles.cardImageContainer}>
+                        <Image style={styles.cardImage}        
+                               source={require('./user.png')}/>        
+                    </View>
+                </View>
+            </View>
+        );
+    }
+}
+// 여러 곳에서 사용할 경우를 대비해서 프로필 카드의 색상을 변수에 정의함
+const profileCardColor = 'dodgerblue'
+
+const styles = StyleSheet.create({
+    container: {    // 가장 바깥쪽 컴포넌트가 사용할 스타일
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    cardContainer: {    // 프로필 카드에서 사용할 스타일
+        borderColor: 'black',
+        borderWidth: 3,
+        borderStyle: 'solid',
+        borderRadius: 20,
+        backgroundColor: profileCardColor,
+        width: 300,
+        height: 400
+    },
+    cardImageContainer: { // 이미지 컨테이너는 120 x 120 크기의 정사각형, borderRadius 속성을 60으로 지정해서 원으로 나타남
+        backgroundColor: 'white',
+        borderWidth: 3,
+        borderColor: 'black',
+        width: 120,
+        height: 120,
+        borderRadius: 60
+    },
+    cardImage: {
+        width: 80,
+        height: 80
+    }
+    
+});
+
+export default App
+```
+### 컴포넌트의 위치를 margin과 padding으로 지정하기
+```
+- 컴포넌트의 위치는 상대적으로 지정하는 것이 반응형에 적합
+- margin을 이용해 각 컴포넌트 사이의 위치를 상대적으로 정의
+- padding을 이용해 컴포넌트의 테두리부터 컴포넌트의 상대 위치를 정의
+```
+### margin 속성 이용하기
+```
+- margin 속성으로 컴포넌트의 주변 둘레 정의 가능
+- margin, marginTop, marginRight, marginBottom, marginLeft 속성 
+- 안드로이드에서 음수 값의 margin이 적용될 때 리액트 네이티브의 버전이 낮은 경우 컴포넌트가 잘려 나가는 경우 발생
+```
+### padding 속성 이용하기
+```
+- padding 속성으로 컴포넌트의 내용이 해당 컴포넌트의 경계선에 제한되지 않도록 지정 가능
+- padding, paddingLeft paddingRight, paddingTop, paddingBottom 속성
+- 컴포넌트와 부모 컴포넌트 사이의 공간을 지정하는 margin과 달리 padding은 컴포넌트의 테두리부터 자식 엘리먼트에 적용
+```
+### position을 이용해 컴포넌트 배치하기
+```
+- 기본적으로 리액트 네이티브에서 모든 요소는 다른 요소들에 상대적으로 배치
+- position 속성에는 relative(상대값)와 absolute(절대값) 존재
+- css의 static, fixed 지원 X
+```
+### 프로필 카드의 위치 지정하기
+```javascript
+- 원과 사용자 이미지에 여백을 주고 모든 요소를 중앙으로 정렬
+
+cardContainer: {              // 프로필 카드에서 사용할 스타일
+        alignItems: 'center', // 프로필 카드를 수평축에서 중앙으로 정렬
+        borderColor: 'black',
+        borderWidth: 3,
+        borderStyle: 'solid',
+        borderRadius: 20,
+        backgroundColor: profileCardColor,
+        width: 300,
+        height: 400
+    },
+    cardImageContainer: {
+        alignItems: 'center', // 사용자 이미지를 수평축에서 중앙으로 정렬
+        backgroundColor: 'white',
+        borderWidth: 3,
+        borderColor: 'black',
+        width: 120,
+        height: 120,
+        borderRadius: 60,
+        marginTop: 30,       // 프로필 카드와 원의 상단의 간격
+        paddingTop: 15       // 원과 안쪽 이미지 사이의 간격
+    },
+```
 ## 05.07
 > 중간고사 코드 리뷰
 ```
@@ -52,7 +168,7 @@ var {p, q} = o;
 console.log(p); // 42
 console.log(q); // true
 ```
-> View 컴포넌트에 스타일 적용하기
+> View 컴포넌트에 스타일 적용하기(~p.152)
 ### 배경색 설정하기
 |         지원형식              |          예                 |
 |-------------------------------|-----------------------------|
@@ -67,7 +183,7 @@ console.log(q); // true
 | css 지정색 이름                | 'dodgerblue'                |
 ### border 속성 지정하기
 ```
-- borderColor & borderWidth
+ - borderColor & borderWidth
  각 측면의 테두리에 각각의 속성 적용 가능
  - borderRadius
  각 모서리에 사용하는 속성
@@ -147,6 +263,7 @@ console.log(1, 2, 3, 4, 5); // 1, 2, 3, 4, 5
 ```javascript
 - 객체의 외부에서 사용할 때 활용
 - React에서는 생성자에서 binding 하는 것이 일반적
+
 let foo = {  
     prop: 'Hello',
     bar: function() {
