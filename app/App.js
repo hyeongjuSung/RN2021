@@ -71,6 +71,12 @@ const styles = StyleSheet.create({
         marginTop: 30,
         fontSize: 24,
         fontWeight: 'bold',
+        textShadowColor: 'blue',
+        textShadowOffset: {
+            height: 2,
+            width: 2
+        },
+        textShadowRadius: 3,
         ...Platform.select({
             ios: {
                 fontFamily: 'American Typewriter'
