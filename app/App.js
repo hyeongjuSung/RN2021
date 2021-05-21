@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Image, StyleSheet, View, Text, TouchableWithoutFeedback} from 'react-native'
+import {Image, StyleSheet, View, Text, Platform} from 'react-native'
 
 class App extends Component {
     render(){
@@ -68,17 +68,30 @@ const styles = StyleSheet.create({
     },
     cardName: {
         color: 'white',
-        marginTop: 30
+        marginTop: 30,
+        fontSize: 24,
+        fontWeight: 'bold',
+        ...Platform.select({
+            ios: {
+                fontFamily: 'American Typewriter'
+            },
+            android: {
+                fontFamily: 'monospace',
+                fontStyle: 'italic'
+            },
+        }),
     },
     cardOccupationContainer: {
         borderColor: 'black',
         borderBottomWidth: 3
     },
     cardOccupation: {
+        fontWeight: 'bold',
         marginTop: 10,
         marginBottom: 10
     },
-    cardDescription: {    
+    cardDescription: {  
+        fontStyle: 'italic',  
         marginTop: 10,
         marginRight: 40,
         marginLeft: 40,
