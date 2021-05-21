@@ -5,26 +5,26 @@ class App extends Component {
     render(){
         return(
             <View style={styles.container}>
-            <View style={styles.exampleContainer}>
-              <Example>    
-                <CenteredText>A</CenteredText>
-              </Example>
+                <View style={styles.exampleContainer}>
+                    <Example style={{}}>    
+                        <CenteredText>A</CenteredText>
+                    </Example>
             </View>
-          <View style={styles.exampleContainer}>
-              <Example style={{marginTop: 50}}>    
-                <CenteredText>B</CenteredText>
-              </Example>
-          </View>
-          <View style={styles.exampleContainer}>
-            <Example style={{marginTop: 50, marginLeft: 10}}>    
-              <CenteredText>C</CenteredText>
-            </Example>
-          </View>
-          <View style={styles.exampleContainer}>
-            <Example style={{marginLeft: -10, marginTop: -10}}>    
-              <CenteredText>D</CenteredText>
-            </Example>
-          </View>
+            <View style={styles.exampleContainer}>
+                <Example style={{paddingTop: 10}}>    
+                    <CenteredText>B</CenteredText>
+                </Example>
+            </View>
+            <View style={styles.exampleContainer}>
+                <Example style={{paddingTop: 10, paddingLeft: 10}}>    
+                    <CenteredText>C</CenteredText>
+                </Example>
+            </View>
+            <View style={styles.exampleContainer}>
+                <Example style={{paddingLeft: -10, paddingTop: -10}}>    
+                    <CenteredText>D</CenteredText>
+                </Example>
+            </View>
         </View>
         );
     }
@@ -67,8 +67,10 @@ const styles = StyleSheet.create({
     },
     centeredText: {
         textAlign: 'center',
-        margin: 10
-    }
+        margin: 10,
+        borderWidth: 1,    
+        backgroundColor: 'lightgrey'
+     }
 });
 
 export default App
