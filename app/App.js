@@ -1,31 +1,32 @@
 import React, {Component} from 'react'
-import {Image, StyleSheet, View, Text} from 'react-native'
+import {StyleSheet, View, Text} from 'react-native'
 
 class App extends Component {
     render(){
         return(
             <View style={styles.container}>
-                <View style={styles.exampleContainer}>
-                    <Example style={{}}>    
+                <View style={styles.row}>    
+                    <Example>
                         <CenteredText>A</CenteredText>
                     </Example>
-            </View>
-            <View style={styles.exampleContainer}>
-                <Example style={{paddingTop: 10}}>    
-                    <CenteredText>B</CenteredText>
-                </Example>
-            </View>
-            <View style={styles.exampleContainer}>
-                <Example style={{paddingTop: 10, paddingLeft: 10}}>    
-                    <CenteredText>C</CenteredText>
-                </Example>
-            </View>
-            <View style={styles.exampleContainer}>
-                <Example style={{paddingLeft: -10, paddingTop: -10}}>    
+                    <Example>
+                        <CenteredText>B</CenteredText>
+                        <View style={[styles.tinyExample,    
+                                     {position: 'absolute',
+                                      right: 0,
+                                      bottom: 0}]}>
+                            <CenteredText>E</CenteredText>
+                        </View>
+                    </Example>
+                    <Example>
+                        <CenteredText>C</CenteredText>
+                    </Example>
+                </View>
+                <Example style={{position: 'absolute',    
+                                 right: 0, bottom: 0}}>
                     <CenteredText>D</CenteredText>
                 </Example>
             </View>
-        </View>
         );
     }
 }
@@ -44,33 +45,34 @@ const CenteredText = (props) => (
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'center',
-        flex: 1,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-        marginTop: 75
+        width: 300,
+        height: 300,
+        margin: 40,
+        marginTop: 100,
+        borderWidth: 1
     },
-    exampleContainer: {
-        borderWidth: 1,
-        width: 120,
-        height: 120,
-        marginLeft: 20,
-        marginBottom: 20,
+    row: {    
+        flex: 1,
+        flexDirection: 'row'
     },
     example: {
-        width: 50,
-        height: 50,
+        width: 100,
+        height: 100,
         backgroundColor: 'grey',
         borderWidth: 1,
         justifyContent: 'center'
     },
+    tinyExample: {
+        width: 30,
+        height: 30,
+        borderWidth: 1,
+        justifyContent: 'center',
+        backgroundColor: 'lightgrey'
+    },
     centeredText: {
         textAlign: 'center',
-        margin: 10,
-        borderWidth: 1,    
-        backgroundColor: 'lightgrey'
-     }
+        margin: 10
+    }
 });
 
 export default App
