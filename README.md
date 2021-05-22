@@ -2,6 +2,108 @@ RN2021 201740220 성형주
 =============
 React Native 수업 내용 정리
 -------------
+## 05.21
+> git graph 활용
+```
+ - git graph를 통한 checkout시 내용 참고만 하되 수정 및 커밋은 되도록 지양
+```
+> 예제 코드(4.11~12) 복사 후 발생하는 에러 수정
+```
+- 코드 전체 복사가 아닌 render() 안에 내용만 수정할 경우 정상적으로 동작
+```
+> Text 컴포넌트에 스타일 적용하기
+### Text 컴포넌트 vs View 컴포넌트
+```
+- flex속성을 제외하고 View에서 사용되는 대부분의 스타일을 Text에서도 사용 가능
+- 반대로 Text에서 사용하는 스타일을 View에서는 사용 불가
+```
+### 폰트 스타일
+```javascript
+1. font-family
+- css와는 달리 fontFamily 속성에 여러 개의 폰트 지정 불가
+- iOS에서는 monospace	옵션을 사용 불가
+- 안드로이드에서는 지원하지 않는 폰트가 지정되면 기본 폰트를 사용
+- 기본 폰트 외에 다른 폰트를 사용하려면 Platform	컴포넌트를 이용
+
+ ...Platform.select({
+            ios: {
+                fontFamily: 'American Typewriter'
+            },
+            android: {
+                fontFamily: 'monospace',
+                fontStyle: 'italic'
+            },
+        }),
+
+2. font-size
+- Text 요소의 텍스트 크기를 조정
+- 기본 크기는 14px
+
+3. fontStyle
+- 	normal과 italic	두개의 옵션만 사용 가능
+- 기본 값은 normal
+
+4. fontWeigjt
+- 폰트의 두께 지정
+- 기본값은 normal 또는 400
+```
+### 텍스트 장식하기
+```javascript
+- textShadowColor, textShadowOffset, textShadowRadius 속성을 이용해 텍스트에 음영넣기
+
+textShadowColor: 'blue',
+        textShadowOffset: {
+            height: 2,
+            width: 2
+        },
+        textShadowRadius: 3,
+```
+## 5장 고급 스타일링 기법
+> 플랫폼별 크기와 스타일
+```
+1. 픽셀
+- 디스플레이에 표현되는 프로그래밍할 수 있는 가장 작은 단위의 색상
+- 빨간색, 노란색, 파란색의 색 요소로 구성
+
+2. 화면 크기
+- 한 모서리부터 대각선 모서리까지의 대각선 길이
+
+3. 해상도
+- 디스플레이에 표시되는 픽셀 수
+```
+> 프로필 카드 예제에 음영 넣기
+```javascript
+- 안드로이드에서는 elevation 속성을 통해 음영 효과를 적용
+- ios만큼 음영 효과가 두드러지지 않음
+
+...Platform.select({    
+            ios: {
+              shadowColor: 'black',
+              shadowOffset: {
+                height: 10
+              },
+              shadowOpacity: 1
+            },
+            android: {
+              elevation: 15
+            }
+          })
+```
+## 6장 내비게이션
+> 탭, 스택, 드로어 내비게이션
+```
+1. 탭 내비게이션
+- 화면의 위나 아래에 탭이 있고, 탭을 터치하면 연결된 페이지로 라우팅 되는 형태
+
+2. 스택 내비게이션
+- 기존의 화면위에 다른 화면이 스택 구조로 쌓이는 형태
+- 화면 이동 후에는 스택에 있는 이전 화면으로 되돌아가거나 계속해서 다음 화면으로 이동 가능
+
+3. 드로어 내비게이션
+- 화면의 왼쪽 혹은 오른족에서 나오는 전형적인 사이드 메뉴
+- 메뉴항목을 선택하면 드로어가 닫히고 메뉴 화면으로 이동
+- 리액트 네이티브에서는 내비게이션 라이브러리가 포함 X
+```
 ## 05.14
 > View 컴포넌트에 스타일 적용하기
 ### borderRadius를 이용해 모양 만들기

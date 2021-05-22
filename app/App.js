@@ -49,7 +49,19 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         backgroundColor: profileCardColor,
         width: 300,
-        height: 400
+        height: 400,
+        ...Platform.select({    
+            ios: {
+              shadowColor: 'black',
+              shadowOffset: {
+                height: 10
+              },
+              shadowOpacity: 1
+            },
+            android: {
+              elevation: 15
+            }
+          })
     },
     cardImageContainer: {
         alignItems: 'center', // 사용자 이미지를 수평축에서 중앙으로 정렬
@@ -60,7 +72,21 @@ const styles = StyleSheet.create({
         height: 120,
         borderRadius: 60,
         marginTop: 30,       // 프로필 카드와 원의 상단의 간격
-        paddingTop: 15       // 원과 안쪽 이미지 사이의 간격
+        paddingTop: 15,       // 원과 안쪽 이미지 사이의 간격
+        ...Platform.select({    
+            ios: {
+              shadowColor: 'black',
+              shadowOffset: {
+                height: 10,
+              },
+              shadowOpacity: 1
+            },
+            android: {
+              borderWidth: 3,
+              borderColor: 'black',
+              elevation: 15
+            }
+          })
     },
     cardImage: {
         width: 80,
