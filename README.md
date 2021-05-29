@@ -2,6 +2,11 @@ RN2021 201740220 성형주
 =============
 React Native 수업 내용 정리
 -------------
+# 05.28
+> NaviApp
+https://github.com/hyeongjuSung/NaviApp
+> HelloExpo
+https://github.com/hyeongjuSung/HelloExpo
 ## 05.21
 > git graph 활용
 ```
@@ -40,7 +45,7 @@ React Native 수업 내용 정리
 - 기본 크기는 14px
 
 3. fontStyle
-- 	normal과 italic	두개의 옵션만 사용 가능
+- normal과 italic	두개의 옵션만 사용 가능
 - 기본 값은 normal
 
 4. fontWeigjt
