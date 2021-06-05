@@ -65,8 +65,8 @@ const Child2 = () => (                        // ThemeContext.Consumer가 감싸
 > npm install redux react-redux
 2. 프로젝트 root에 src폴더를 생성하고, 이 폴더에 Books.js와 actions.js파일 추가
 3. src 폴더에 reducers폴더를 생성하고, 이 폴더에 bookReducer.js와 index.js파일 추가
-![src 폴더 구조](https://drek4537l1klr.cloudfront.net/dabit/Figures/c08_02.png)
 ```
+![src 폴더 구조](https://drek4537l1klr.cloudfront.net/dabit/Figures/c08_02.png)
 > 리덕스 리듀서로 리덕스 state 관리하기
 ```javascript
 - 리듀서는 객체를 반환하는 함수로, 여러 리듀서를 묶어 전역 state를 만듦
