@@ -2,7 +2,318 @@ RN2021 201740220 성형주
 =============
 React Native 수업 내용 정리
 -------------
-# 05.28
+## 06.05
+## 8장 리덕스 데이터 아키텍처 라이브러리 이용하기
+> 리덕스란?
+```
+- 자바스크립트 앱을 위한 예측 가능한 state 컨테이너
+- 앱에 단 하나밖에 없는 전역 상태 객체
+- 이 전역 state 객체는 리액트 네이티브 컴포넌트에서 props로 전달됨
+- 리덕스 state의 데이터가 변경되면, 변경된 새 데이터가 전체 앱에 props로 전달됨
+- 앱의 state를 모두 store라는 곳으로 이동시켜 데이터 관리를 편리하게 함
+- 리액트의 context라는 기능을 이용해서 동작함
+*context: 전역 state를 만들고 관리하는 메커니즘
+```
+> context를 이용해서 앱의 전역 상태 관리하기
+```javascript
+- context는 앱 전체에서 참조할 수 있는 전역 변수를 만드는 React API
+- context를 전달받는 컴포넌트는 context를 만든 컴포넌트의 자식 컴포넌트여야 함
+- context를 이용하면 props를 사용할 필요가 없음
+
+// 예제 8.1
+const ThemeContext = React.createContext()    // context를 참조하는 ThemeContext 변수 생성
+...
+ return (
+      <ThemeContext.Provider                  // 자식 컴포넌트에 context 전달, 
+        value={{                              // Provider로 감싼 모든 데이터나 함수는 Consumer로 감싼 자식 컴포넌트에서 참조 가능
+          themeValue: this.state.themeValue,
+          toggleThemeValue: this.toggleThemeValue
+        }}
+      >
+        <View style={styles.container}>
+          <Text>Hello World</Text>
+        </View>
+        <Child1 />
+      </ThemeContext.Provider>
+    );
+  }
+}
+
+const Child1 = () => <Child2 />               // 컴포넌트를 반환하는 stateless함수,
+                                              // 부모 컨테이너와 Child2 컴포넌트 사이에 props가 전달되지 않는 것을 보여줌
+const Child2 = () => (                        // ThemeContext.Consumer가 감싸고 있는 컴포넌트를 반환하는 stateless 함수
+  <ThemeContext.Consumer>
+    {(val) => (
+        <View style={[styles.container, 
+                      val.themeValue === 'dark' && 
+                     { backgroundColor: 'black' }]}>
+          <Text style={styles.text}>Hello from Component2</Text>
+          <Text style={styles.text} 
+                onPress={val.toggleThemeValue}>
+              Toggle Theme Value
+          </Text>
+        </View>
+      )}
+  </ThemeContext.Consumer>
+)
+...
+```
+> 리액트 네이티브 앱에 리덕스 구현하기
+### 도서 목록 관리 앱
+```
+1. 리덕스 관련 의존성 라이브러리 설치
+> npm install redux react-redux
+2. 프로젝트 root에 src폴더를 생성하고, 이 폴더에 Books.js와 actions.js파일 추가
+3. src 폴더에 reducers폴더를 생성하고, 이 폴더에 bookReducer.js와 index.js파일 추가
+![src 폴더 구조](https://drek4537l1klr.cloudfront.net/dabit/Figures/c08_02.png)
+```
+> 리덕스 리듀서로 리덕스 state 관리하기
+```javascript
+- 리듀서는 객체를 반환하는 함수로, 여러 리듀서를 묶어 전역 state를 만듦
+- src/reducers/index.js 파일에 앱에서 사용할 모든 reducer를 결합해서 전역 state를 구성
+
+// 예제 8.2 
+// bookReducer.js에 첫 번째 reducer 만들기
+const initialState = {          // 초기상태 만들기
+  books: [{ name: 'East of Eden', author: 'John Steinbeck' }]    
+}    
+const bookReducer = (state = initialState) => {    // state 인수의 기본 값을 initialState로 지정
+  return state    
+}
+
+export default bookReducer
+
+// 예제 8.3
+// reducers/index.js에 전역 state 만들기
+import { combineReducers } from 'redux'           // redux에서 combineReducers 가져오기
+import bookReducer from './bookReducer'           // bookReducer 가져오기
+
+const rootReducer = combineReducers({             // 모든 리듀서를 포함하는 루트 리듀서를 만듦
+  bookReducer
+})
+
+export default rootReducer
+
+```
+> provider를 추가하고 스토어 만들기
+```javascript
+- provider는 자식 컴포넌트에 데이터를 전달하는 부모 컴포넌트
+- 리덕스에서 provider는 앱 전체에 전역 state를 전달함
+
+// 예제 8.4
+// App.js에 provider와 스토어 추가하기
+import React from 'react'
+
+import Books from './src/Books'             // 예제 8.5에서 만들 Books 컴포넌트 가져오기
+import rootReducer from './src/reducers'    // rootReducer 가져오기
+
+import { Provider } from 'react-redux'      // react-redux에서 Provider 래퍼 가져오기
+import { createStore } from 'redux'         // redux에서 createStore 가져오기
+
+const store = createStore(rootReducer)      // rootReducer를 이용해서 store 객체 생성
+
+export default class App extends React.Component {
+  render() {
+    return (                                // Provider 컴포넌트로 감싼 Books 컴포넌트 반환, Provider의 prop으로 store를 전달
+      <Provider store={store} >             
+        <Books />    
+      </Provider>    
+    )
+  }
+}
+
+```
+> connect 함수를 이용해서 데이터 참조하기
+```javascript
+- react-redux의 connect 함수를 이용해 자식 컴포넌트에서 store를 참조
+- connect 함수의 첫 번째 인수는 리덕스의 전역 state를 참조할 수 있게 해주는 함수
+- connect는 다른 함수를 반환하는 커링 함수
+- connect(args)(args)
+- connect 함수의 첫 번째 인수로 실행된 결과로 만들어진 객체는 두 번째 인수로 전달된 컴포넌트의 props로 사용 가능
+
+// 예제 8.5
+// Book.js에 있는 connect 함수
+connect(
+  (state) => {                                // redux의 전역 상태 객체를 인수로 함
+    return {    
+      books: state.bookReducer.books         // 함수의 결과를 반환되는 객체
+    }
+  }
+)(Books)                                     // 첫 번째 함수의 결과에서 반환된 객체를 Books 컴포넌트에 전달
+
+// 예제 8.6
+// redux store와 bookReducer 데이터 참조하기
+...
+import { connect } from 'react-redux'             // react-redux에서 connect 가져오기
+
+class Books extends React.Component<{}> {
+  render() {
+    const { books } = this.props                  // connect 함수가 books 배열을 반환하므로 이 배열을 props로 참조 가능
+
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>Books</Text>
+        <ScrollView
+          keyboardShouldPersistTaps='always'
+          style={styles.booksContainer}
+        >
+          {
+            books.map((book, index) => (         // 배열과 매핑해서 각 도서의 이름과 저자를 표시
+              <View style={styles.book} key={index}>    
+                <Text style={styles.name}>{book.name}</Text>    
+                <Text style={styles.author}>{book.author}</Text>    
+              </View>    
+            ))    
+          }
+        </ScrollView>
+      </View>
+    )
+  }
+}
+...
+const mapStateToProps = (state) => ({              // 리덕스의 state 객체를 인수로 전달받고 하나의 키를 포함한 객체를 반환,
+  books: state.bookReducer.books                   // 이 키는 books 배열을 포함
+})    
+
+export default connect(mapStateToProps)(Books)     // connect 함수의 결과를 외부에 export
+
+```
+> 액션 추가하기
+```javascript
+- 도서를 추가하는 기능을 만들기 위해 액션을 사용
+- 액션은 스토어에 데이터를 보내고, 리듀서를 업데이트하는 객체를 반환하는 함수
+- 스토어의 데이터는 액션을 통해서만 변경 가능
+- 리덕스 dispatch 함수로 액션을 호출하면, 앱의 모든 리듀서에 액션이 전달됨
+- 리듀서가 액션을 전달받으면, 액션의 type 속성을 확인하고 리듀서와 관련된 액션에 따라 리듀서가 반환된 것을 업데이트 함
+
+// 예제 8.7
+// 첫 번째 액션 만들기
+export const ADD_BOOK = 'ADD_BOOK'          // 리듀서에서 재사용할 수 있도록 ADD_BOOk 상수를 만들어 export
+
+export function addBook (book) {            // addBook이라는 함수를 만들고 type 정보와 하나의 인수로 전달된 도서 객체를 반환
+  return {
+    type: ADD_BOOK,
+    book
+  }
+}
+
+//예제 8.8
+// addBook 액션을 이용할 수 있도록 bookReducer 수정하기
+import { ADD_BOOK } from '../actions'                         // actions.js에서 ADD_BOOK 상수를 가져옴
+
+const initialState = {
+  books: [{ name: 'East of Eden', author: 'John Steinbeck' }]
+}
+
+const bookReducer = (state = initialState, action) => {       // bookReducer의 두 번째 인수로 액션을 추가
+  switch(action.type) {                                       // 액션의 type에 따라 분기하는 switch문 추가 
+    case ADD_BOOK:
+      return {
+        books: [    
+          ...state.books,
+          action.book
+        ]
+      }
+    default:    
+      return state
+  }
+}
+
+export default bookReducer
+```
+> 리듀서에서 리덕스 스토어에 저장된 내용 지우기
+```javascript
+- 도서 목록에서 도서를 삭제하는 것처럼 배열에서 항목을 제거하려면, 먼저 도서를 고유하게 식별할 수 있어야 함
+- uuid 라이브러리를 이용하여 고유한 식별자를 만들기가 가능
+> npm install uuid
+
+// 예제 8.12
+// uuid 가져와서 이용하기
+import uuidV4 from 'uuid/v4'                  // v4 알고리즘 가져오기
+import { ADD_BOOK } from '../actions'
+
+const initialState = {                       // initialState에 id 속성을 추가하고 id 속성에 새로운 고유 식별자를 지정
+  books: [{ name: 'East of Eden', author: 'John Steinbeck', id: uuidV4() }]
+}
+
+// 예제 8.13
+// actions.js에 removeBook 액션 만들기
+export const ADD_BOOK = 'ADD_BOOK'
+export const REMOVE_BOOK = 'REMOVE_BOOK'    
+import uuidV4 from 'uuid/v4'    
+
+export function addBook (book) {
+  return {
+    type: ADD_BOOK,
+    book: {
+      ...book,
+      id: uuidV4()                          // bood에 새 키를 추가, id에 uuidV4 함수를 이용해 새로 생성된 고유 식별자를 지정
+    }
+  }
+}
+
+export function removeBook (book) {         // removeBook 함수를 추가, 이 함수는 type과 인수로 전달된 book을 포함한 객체를 반환
+  return {
+    type: REMOVE_BOOK,
+    book
+  }
+}
+
+// 예제 8.14 
+// 리덕스 리듀서의 배열에서 항목 삭제하기
+import uuidV4 from 'uuid/v4'
+import { ADD_BOOK, REMOVE_BOOK } from '../actions'        // REMOVE_BOOK 상수 가져오기
+
+const initialState = {                                    // initialState에 id 속성을 추가하고 id 속성에 새로운 고유 식별자를 지정
+  books: [{ name: 'East of Eden', author: 'John Steinbeck', id: uuidV4() }]
+}
+const bookReducer = (state = initialState, action) => {   // bookReducer의 두 번째 인수로 액션을 추가
+  switch(action.type) {                                   // 액션의 type에 따라 분기하는 switch문 추가
+    ...
+    case REMOVE_BOOK:                                     // type이 REMOVE_BOOK인 액션을 처리하기 위한 switch문 추가
+      const index = state.books.findIndex(
+                        book => book.id === action.book.id)    
+      return {
+        books: [                                          // 기존 books 배열에서 삭제할 도서의 index를 제외하고 나머지 항목을 포함한 새 배열을 반환
+          ...state.books.slice(0, index),
+          ...state.books.slice(index + 1)
+        ]
+      }
+    ...
+  }
+}
+
+export default bookReducer
+
+// 예제 8.15
+// removeBook 기능을 Books.js에 구현
+...
+import { addBook, removeBook } from './actions'    // actions.js의 addBook, removeBook 함수 가져오기
+...
+  removeBook = (book) => {                         // removeBook이라는 새 클래스 메서드를 만들고,
+    this.props.dispatchRemoveBook(book)            // mapDispatchToProps의 새 키로 this.props.dispatchRemoveBook을 호출
+  }
+...
+
+{
+            books.map((book, index) => (          // 새 Text 컴포넌트를 반환하고 Text 컴포넌트의 onPress 이벤트에 removeBook 연결
+              <View style={styles.book} key={index}>    
+                <Text style={styles.name}>{book.name}</Text>    
+                <Text style={styles.author}>{book.author}</Text>    
+                <Text onPress={() => this.removeBook(book)}>    
+                    Remove    
+                </Text>    
+              </View>    
+            ))
+          }
+
+...
+const mapDispatchToProps = {                    // mapDispatchToProps에 dispatchRemoveBook 함수 추가
+  dispatchAddBook: (book) => addBook(book),
+  dispatchRemoveBook: (book) => removeBook(book)    
+}
+```
+## 05.28
 > NaviApp
 https://github.com/hyeongjuSung/NaviApp
 -------------
